@@ -1,0 +1,52 @@
+Arguments: 
+  /home/dalfiannur/.nvm/versions/node/v16.15.0/bin/node /home/dalfiannur/.nvm/versions/node/v16.15.0/bin/yarn add @svelte/adapter-auto
+
+PATH: 
+  /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/dalfiannur/.deno/bin:/home/dalfiannur/.nvm/versions/node/v16.15.0/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/dalfiannur/Android/Sdk/tools:/home/dalfiannur/Android/Sdk/platform-tools:/home/dalfiannur/Android/Sdk/emulator
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  16.15.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@svelte%2fadapter-auto: Not found
+      at Request.params.callback [as _callback] (/home/dalfiannur/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:66138:18)
+      at Request.self.callback (/home/dalfiannur/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:140883:22)
+      at Request.emit (node:events:527:28)
+      at Request.<anonymous> (/home/dalfiannur/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:141855:10)
+      at Request.emit (node:events:527:28)
+      at IncomingMessage.<anonymous> (/home/dalfiannur/.nvm/versions/node/v16.15.0/lib/node_modules/yarn/lib/cli.js:141777:12)
+      at Object.onceWrapper (node:events:641:28)
+      at IncomingMessage.emit (node:events:539:35)
+      at endReadableNT (node:internal/streams/readable:1345:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+  	"name": "admin-panel",
+  	"version": "0.0.1",
+  	"scripts": {
+  		"dev": "svelte-kit dev",
+  		"build": "svelte-kit build",
+  		"package": "svelte-kit package",
+  		"preview": "svelte-kit preview",
+  		"prepare": "svelte-kit sync"
+  	},
+  	"devDependencies": {
+  		"@sveltejs/adapter-auto": "next",
+  		"@sveltejs/kit": "next",
+  		"svelte": "^3.44.0"
+  	},
+  	"type": "module"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
