@@ -1,56 +1,40 @@
 <script>
   import { slide } from "svelte/transition";
   import { quintOut } from "svelte/easing";
-  import InputText from "../components/Input/Text/InputText.svelte";
-  import Select from "../components/Input/Select/Select.svelte";
-  import { get, writable } from "svelte/store";
-  import { useGet } from "../hooks/use-fetcher";
-  import { onMount } from "svelte";
+  import { useMachine } from "../../../hooks/use-machine";
+  import InputText from "../../../components/Input/Text/InputText.svelte";
+  import * as y from "yup";
 
-  let currentStep = 0;
-  const state = writable({
-    name: "",
-    category: "",
-    price: "",
-  });
-
-  const steps = [
+  const [
+    submit,
     {
-      label: "Hallo Dikry, mau di kasih nama apa nih produk ini?",
-      component: InputText,
-      key: "name",
+      currentStep,
+      steps,
+      next,
+      prev,
+      state,
+      isError,
+      isFetching,
+      isSuccess,
+      errorMessage,
     },
-    {
-      label: "Produk ini termasuk dalam kategori apa sih Dikry?",
-      component: Select,
-      key: "category",
+  ] = useMachine({
+    endpoint: {
+      url: "/",
+      method: "post",
     },
-    {
-      label: "Kira-kira, berapa harga yang cocok untuk produk ini?",
-      component: InputText,
-      key: "price",
+    initialValues: {
+      name: "",
     },
-  ];
-
-  function next() {
-    currentStep += 1;
-  }
-
-  function back() {
-    if (currentStep > 0) {
-      currentStep -= 1;
-    }
-  }
-
-  function submit() {
-    const data = get(state);
-    alert(JSON.stringify(data));
-  }
-
-  const result = useGet("/product");
-
-  result.subscribe((v) => {
-    console.log(v);
+    steps: [
+      {
+        key: "name",
+        label:
+          "Jenis kulit seperti apa yang akan kamu gunakan di produkmu nanti?",
+        component: InputText,
+        validation: y.string().required(),
+      },
+    ],
   });
 </script>
 
@@ -70,6 +54,10 @@
             this={step.component}
             bind:value={$state[step.key]}
           />
+
+          {#if isError}
+            <span>{errorMessage}</span>
+          {/if}
         </div>
       {/if}
     {/each}
@@ -81,21 +69,18 @@
       class="absolute bottom-10 left-15 bg-white px-5 py-2 h-15 rounded text-red-500 font-bold uppercase"
       class:bg-gray-300={currentStep === 0}
       class:text-gray-500={currentStep === 0}
-      on:click={back}>Kembali</button
+      on:click={prev}>Kembali</button
     >
   {/if}
 
-  {#if currentStep < steps.length - 1}
+  {#if currentStep < steps.length}
     <button
-      disabled={currentStep === steps.length - 1}
       class="absolute bottom-10 right-15 bg-white px-5 py-2 h-15 rounded text-red-500 font-bold uppercase"
-      class:bg-gray-300={currentStep === steps.length - 1}
-      class:text-gray-500={currentStep === steps.length - 1}
       on:click={next}>Selanjutnya</button
     >
   {/if}
 
-  {#if currentStep === steps.length - 1}
+  {#if currentStep === steps.length}
     <button
       class="absolute bottom-10 right-15 bg-white px-5 py-2 h-15 rounded text-red-500 font-bold uppercase"
       on:click={submit}>Simpan</button
